@@ -2,9 +2,23 @@
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+#container {
+  width: 1000px;
+  margin: auto;
+}
+
+#navBar{
+  float: right;
+
+}
 nav img {
   width: 75px;
 }
+
+.small-image{
+  width: 300px;
+}
+
 footer{
   border: dotted purple 5px;
   height: 50px;

@@ -59,7 +59,7 @@ var leftProductImageTag = document.getElementById('leftProductImage');
 var centerProductImageTag = document.getElementById('centerProductImage');
 var rightProductImageTag = document.getElementById('rightProductImage');
 
-var resultsContainer = document.getElementById('resultsSection');
+// var resultsContainer = document.getElementById('resultsSection');
 
 var totalClicks = 0;
 var maxClicks = 25;
@@ -107,7 +107,9 @@ var buildProducts = function(){
   new ProductImage('Water Can', 'assets/water-can.jpg');
   new ProductImage('Wine Glass', 'assets/wine-glass.jpg');
 
-}
+};
+
+
 
 //get random integer inclusive goes here 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -115,7 +117,8 @@ var buildProducts = function(){
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+  return Math.floor(Math.random() * (max - min + 1)) + min; 
+  //The maximum is inclusive and the minimum is inclusive 
 }
 
 var pickUniqueNonRepeating = function(){
@@ -143,7 +146,7 @@ var renderThreeNewProducts = function(){
 
   leftProductImageTag.src = leftProductImage.url;
   centerProductImageTag.src = centerProductImage.url;
-  rightProductImageTag.src - rightProductImage.url;
+  rightProductImageTag.src = rightProductImage.url;
 
   ProductImage.previousProducts = currentPicks;
 };
@@ -170,13 +173,9 @@ var handleClickOnProduct = function(event){
     renderThreeNewProducts();
   } else {
     productImageSectionTag.removeEventListener('click', handleClickOnProduct);
+    makeBusChart();
 
-    for(i = 0; i < ProductImage.allProducts.length; i++){
-      var liEl = document.createElement('li');
-      liEl.textContent = ProductImage.allProducts[i].name + '' + Math.floor((ProductImage.allProducts[i].clicks / ProductImage.allProducts[i].timesShown) * 100);
-      resultsContainer.appendChild(liEl);
-      
-    }
+
   }
 };
 
@@ -189,3 +188,63 @@ var initPage = function(){
 };
 
 initPage();
+
+//chart test
+
+function makeBusChart(){
+  
+  var busChartCanvas = document.getElementById('busResults');
+
+  var percents = [];
+  var names = [];
+
+  for(var i = 0; i < ProductImage.allProducts.length; i++){
+    var p = Math.floor((ProductImage.allProducts[i].clicks / ProductImage.allProducts[i].timesShown) * 100);
+    names.push(ProductImage.allProducts[i].name);
+    percents.push(p);
+  }
+  // ['Bag', 'Banana','Bathroom','Boots','Breakfast', 'Bubblegum','Chair','Cthulhu','Dog-Duck','Dragon','Pen','Pet Sweeper','Scissors','Shark','Baby Sweep','Taun Taun','Unicorn','USB','Watering Can','Wine Glass'],
+  var chartData = {
+    labels: names,
+    datasets: [{
+      label: 'Your Product Votes',
+      data: percents,
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
+
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+
+      ],
+      borderWidth: 1
+    }]
+  };
+
+  var busChartObject = {
+    type: 'pie',
+    data: chartData,
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+
+        }]
+      }
+    }
+  };
+
+  var busChart = new Chart(busChartCanvas, busChartObject);
+}

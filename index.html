@@ -12,7 +12,7 @@
       <nav>
         <img src="./assets/logo.jpg" alt="">
         
-        <h1>Title</h1>
+
         <ul id="navBar">
           <li> <a href="#">Home</a></li>
           <li><a href="#">Products</a></li>
@@ -20,48 +20,45 @@
           <li><a href="#">Contact</a></li>
 
         </ul>
-
+        <h1>Welcome to Bus-Mall's User Research Survey</h1>
       </nav>
     </header>
 
     <main>
 
 
-      <section id="resultsSection">
-      results Section
-      </section>
+
       <section id="allProductImages">     
         
-        <div id="leftProduct">
-          <img id="leftProductImage" src="assets/dragon.jpg" alt="dragon meat">
-          <!-- <label for="leftProductSelect">select</label>
-          <input type="radio" name="leftProduct" id="leftProductSelect"
-          value="select"> -->
+        <div id="leftProduct" >
+          <img id="leftProductImage"class="roundedSquareContainer">
+
+        </div>
+        <div id="rightProduct">
+
+          <img id="rightProductImage"class="roundedSquareContainer">
+
         </div>
 
         <div id="centerProduct">
-          <img id="centerProductImage" src="assets/pen.jpg" alt="cutlery pen">
-          <!-- <label for="centerProductSelect">select</label>
-          <input type="radio" name="centerProduct" id="centerProductSelect" value="select"> -->
+          <img id="centerProductImage"class="roundedSquareContainer">
+
         </div>
 
-        <div id="rightProduct">
 
-          <img id="rightProductImage" src="assets/pet-sweep.jpg" alt="pet sweeper">
-          
-          <!-- <label for="rightProductSelect">select</label> 
-          <input type="radio" name="rightProduct" id="rightProductSelect" value="select"> -->
-        </div>
 
       </section>
       
-      <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto quaerat et esse voluptatem, eum culpa totam nisi, perspiciatis atque voluptate aut laboriosam eius ullam! Molestiae praesentium at quae similique consectetur!
-      </p>
+
+      <section id="resultsSection">
+        <canvas id="busResults" width="600px" height="600px" ></canvas>
+  
+      </section>
     </main>
-    <footer>Footer</footer>
+    
 
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js" ></script>
   <script src="app.js"></script>
   </body>
 </html>

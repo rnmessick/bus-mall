@@ -20,6 +20,7 @@ h1{
   margin-bottom: 5px;
   margin-top: 5px;
   margin-left: 50px;
+  text-align: center;
 
 }
 header{
@@ -57,7 +58,7 @@ main > *{
 }
 section > div {
   float: left;
-  margin-left: 10px;
+  margin-left: 60px;
   padding: 10px;
  }
 .roundedSquareContainer{

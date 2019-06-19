@@ -65,9 +65,7 @@ var totalClicks = 0;
 var maxClicks = 25;
 //Store the images on the page
 
-// var leftProductOnPage = null;
-// var centerProductOnPage = null;
-// var rightProductOnPage = null;
+var currentPicks
 
 //constructor
 var ProductImage = function(name, imgSrc= 'default.jpg', clicks, timesShown){
@@ -121,14 +119,14 @@ function getRandomIntInclusive(min, max) {
   //The maximum is inclusive and the minimum is inclusive 
 }
 
-var pickUniqueNonRepeating = function(){
+var pickUniqueNonRepeating = function(currentPicks){
   var index, product;
 
   do {
-    index= getRandomIntInclusive(0, ProductImage.allProducts.length - 1);
-    
+    index = getRandomIntInclusive(0, ProductImage.allProducts.length - 1);
     product = ProductImage.allProducts[index];
-  } while (ProductImage.previousProducts.includes(product));
+
+  } while (ProductImage.previousProducts.includes(product) || currentPicks.includes(product));
 
   return product;
 };
@@ -232,7 +230,7 @@ function makeBusChart(){
   };
 
   var busChartObject = {
-    type: 'pie',
+    type: 'bar',
     data: chartData,
     options: {
       scales: {

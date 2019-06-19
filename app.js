@@ -62,7 +62,7 @@ var rightProductImageTag = document.getElementById('rightProductImage');
 // var resultsContainer = document.getElementById('resultsSection');
 
 var totalClicks = 0;
-var maxClicks = 25;
+var maxClicks = 26;
 //Store the images on the page
 
 var currentPicks = [];
@@ -132,7 +132,7 @@ var pickUniqueNonRepeating = function(currentPicks){
 };
 
 var renderThreeNewProducts = function(){
-  var currentPicks = [];
+  currentPicks = [];
   var leftProductImage = pickUniqueNonRepeating(currentPicks);
   currentPicks.push(leftProductImage);
 
@@ -147,11 +147,20 @@ var renderThreeNewProducts = function(){
   rightProductImageTag.src = rightProductImage.url;
 
   ProductImage.previousProducts = currentPicks;
+
+  var storingClicksAndViews = {
+    allProducts: ProductImage.allProducts,
+    totalClicks: totalClicks,
+  };
+
+  localStorage.setItem('storingClicksAndViews', JSON.stringify(storingClicksAndViews));
 };
+
 
 //setting up event handler
 
 var handleClickOnProduct = function(event){
+  event.preventDefault();
   totalClicks++;
 
   if(event.target.id === 'leftProductImage'){
@@ -171,6 +180,7 @@ var handleClickOnProduct = function(event){
     renderThreeNewProducts();
   } else {
     productImageSectionTag.removeEventListener('click', handleClickOnProduct);
+    // eslint-disable-next-line no-undef
     makeBusChart();
 
 
@@ -186,11 +196,3 @@ var initPage = function(){
 };
 
 initPage();
-
-//chart test
-
-
-
-//local storage, will separate out later
-
-

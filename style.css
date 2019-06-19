@@ -70,3 +70,8 @@ section > div {
   position: relative;
   
 }
+
+#busResults{
+  width: 300px;
+  max-height: 400px;
+}

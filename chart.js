@@ -1,4 +1,5 @@
 function makeBusChart(){
+  var products = JSON.parse(localStorage.getItem('products'));
   
   var busChartCanvas = document.getElementById('busResults');
 

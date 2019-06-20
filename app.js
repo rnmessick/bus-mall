@@ -1,59 +1,4 @@
 'use strict';
-/*
-HTML
-build wireframe ====DONE
-*header with logo image and nav bar with links to other sections of site
-*display totals on left main section
-*have three containers for the images in center main section
-*vote button
-*footer
-
-
-
-Welcome the tester and provide instruction
-Randomly display three products
-click on 1 of the items and click vote
-  event listener fires the event handler
-  check if total clicks is 25
-  stop letting the user click
-  display the clicks
-  track which one was clicked on
-  track how many times item was shown
-  update the object
-randomly display three new products
-
-once every item has been shown once, items can be displayed randomly
-
-style the page, keep all images the same size
-
-create constructor for products === DONE
-
-var productImage = function(){
-  name
-  clicks
-  times shown
-  url
-}
-
-array of all image objects
-
-function to randomly pick an image
-
-click on an image
-event listener
-
-
-function to display all the clicks at the end
-generate a table
-populate the data - adds to the inner html of an existing element
-divide objects's times clicked by total shown
-
-*/
-
-//globals
-
-// var randomProductImagesArray = ['assets/bag.jpg', 'assets/banana.jpg','assets/bathroom.jpg','assets/boots.jpg','assets/breakfast.jpg', 'assets/bubblegum.jpg','assets/chair.jpg','assets/cthulhu.jpg','assets/dog-duck.jpg','assets/dragon.jpg','assets/pen.jpg','assets/pet-sweep.jpg','assets/scissors.jpg','assets/shark.jpg','assets/sweep.png','assets/tauntaun.jpg','assets/unicorn.jpg','assets/usb.gif','assets/water-can.jpg','assets/wine-glass.jpg'];
-
 var productImageSectionTag = document.getElementById('allProductImages');
 var leftProductImageTag = document.getElementById('leftProductImage');
 var centerProductImageTag = document.getElementById('centerProductImage');
@@ -147,15 +92,7 @@ var renderThreeNewProducts = function(){
   rightProductImageTag.src = rightProductImage.url;
 
   ProductImage.previousProducts = currentPicks;
-
-  var storingClicksAndViews = {
-    allProducts: ProductImage.allProducts,
-    totalClicks: totalClicks,
-  };
-
-  localStorage.setItem('storingClicksAndViews', JSON.stringify(storingClicksAndViews));
 };
-
 
 //setting up event handler
 
@@ -178,15 +115,23 @@ var handleClickOnProduct = function(event){
 
   if(totalClicks < maxClicks){
     renderThreeNewProducts();
+
+    //total clicks are counted and added to storage
+    var storeTotalClicks = JSON.stringify(totalClicks);
+    localStorage.setItem ('Total Clicks', storeTotalClicks);
   } else {
     productImageSectionTag.removeEventListener('click', handleClickOnProduct);
-    // eslint-disable-next-line no-undef
     makeBusChart();
 
-
+    storeClicksAndArrays('All Products Array', ProductImage.allProducts);
   }
 };
 
+//storing the objects as a string to local storage
+var storeClicksAndArrays = function(KeyName, product){
+  var productNameToString = JSON.stringify(product);
+  localStorage.setItem(KeyName, productNameToString);
+};
 
 var initPage = function(){
   buildProducts();

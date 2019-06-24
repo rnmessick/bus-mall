@@ -6,9 +6,15 @@ var rightProductImageTag = document.getElementById('rightProductImage');
 
 // var resultsContainer = document.getElementById('resultsSection');
 
-var totalClicks = 0;
-var maxClicks = 26;
+var currentClicks = 0;
+var clicksForChart = 25;
+
 //Store the images on the page
+if (JSON.parse(localStorage.getItem('currentClicks'))){
+  currentClicks = JSON.parse(localStorage.getItem('currentClicks'));
+} else {
+  currentClicks = 0;
+}
 
 var currentPicks = [];
 
@@ -25,6 +31,11 @@ var ProductImage = function(name, imgSrc= 'default.jpg', clicks, timesShown){
   ProductImage.allProducts.push(this);
 };
 
+if (JSON.parse(localStorage.getItem('allProducts'))){
+  ProductImage.allProducts = JSON.parse(localStorage.getItem('allProducts'));
+} else {
+  ProductImage.allProducts = [];
+}
 ProductImage.allProducts = [];
 ProductImage.previousProducts = [];
 
@@ -98,7 +109,7 @@ var renderThreeNewProducts = function(){
 
 var handleClickOnProduct = function(event){
   event.preventDefault();
-  totalClicks++;
+  currentClicks++;
 
   if(event.target.id === 'leftProductImage'){
     ProductImage.previousProducts[0].clicks++;
@@ -113,25 +124,21 @@ var handleClickOnProduct = function(event){
     ProductImage.previousProducts[i].timesShown++;
   }
 
-  if(totalClicks < maxClicks){
+  if(currentClicks < clicksForChart){
     renderThreeNewProducts();
 
     //total clicks are counted and added to storage
-    var storeTotalClicks = JSON.stringify(totalClicks);
-    localStorage.setItem ('Total Clicks', storeTotalClicks);
+    var storeTotalClicks = JSON.stringify(currentClicks);
+    localStorage.setItem ('Current Clicks', storeTotalClicks);
   } else {
     productImageSectionTag.removeEventListener('click', handleClickOnProduct);
     makeBusChart();
 
-    storeClicksAndArrays('All Products Array', ProductImage.allProducts);
+    localStorage.setItem('allProducts', JSON.stringify(ProductImage.allProducts));
   }
 };
 
 //storing the objects as a string to local storage
-var storeClicksAndArrays = function(KeyName, product){
-  var productNameToString = JSON.stringify(product);
-  localStorage.setItem(KeyName, productNameToString);
-};
 
 var initPage = function(){
   buildProducts();
